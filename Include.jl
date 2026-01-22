@@ -5,16 +5,17 @@ const _PATH_TO_DATA = joinpath(_ROOT, "data");
 const _PATH_TO_TMP = joinpath(_ROOT, "tmp");
 const _PATH_TO_FRAMES = joinpath(_ROOT, "frames");
 
-# flag to check if the include file was called -
-const _DID_INCLUDE_FILE_GET_CALLED = true;
+const _DID_INCLUDE_FILE_GET_CALLED = true;  # flag to indicate that this file has been included
 
 # check do we have a Manifest.toml file?
 using Pkg;
 if (isfile(joinpath(_ROOT, "Manifest.toml")) == false) # have manifest file, we are good. Otherwise, we need to instantiate the environment
+    Pkg.add(path="https://github.com/varnerlab/VLDataScienceMachineLearningPackage.jl.git")
     Pkg.activate("."); Pkg.resolve(); Pkg.instantiate(); Pkg.update();
 end
 
 # load external packages
+using VLDataScienceMachineLearningPackage
 using CSV
 using DataFrames
 using FileIO
@@ -27,13 +28,5 @@ using Distances
 using JLD2
 using PrettyTables
 using Clustering
+using ProgressMeter
 using Random
-using Test
-
-# load my own packages
-include(joinpath(_PATH_TO_SRC, "Types.jl"));
-include(joinpath(_PATH_TO_SRC, "Factory.jl"));
-include(joinpath(_PATH_TO_SRC, "Cluster.jl"));
-include(joinpath(_PATH_TO_SRC, "Data.jl"));
-
-
