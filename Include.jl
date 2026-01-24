@@ -30,3 +30,4 @@ using PrettyTables
 using Clustering
 using ProgressMeter
 using Random
+using Test
